@@ -1,54 +1,24 @@
 import React from "react";
 
-export default function MyListe() {
+type ItemType = {
+  id: number;
+  newSuggestions: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+interface MyListeProps {
+  item: ItemType;
+}
+
+export default function MyListe({ item }: MyListeProps) {
+  console.log("item =======> ", item);
+
   return (
     <div className="pt-[20%] h-full overflow-y-auto">
-      DEBUT Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Consectetur, eligendi repellat sit fugit pariatur, minus magni dolore
-      officiis consequatur aliquid, tempora ipsa assumenda laudantium voluptate
-      fuga. Rerum laborum dolorum est. Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Consectetur, eligendi repellat sit fugit pariatur, minus
-      magni dolore officiis consequatur aliquid, tempora ipsa assumenda
-      laudantium voluptate fuga. Rerum laborum dolorum est. Lorem ipsum dolor
-      sit amet consectetur adipisicing elit. Consectetur, eligendi repellat sit
-      fugit pariatur, minus magni dolore officiis consequatur aliquid, tempora
-      ipsa assumenda laudantium voluptate fuga. Rerum laborum dolorum est. Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Consectetur, eligendi
-      repellat sit fugit pariatur, minus magni dolore officiis consequatur
-      aliquid, tempora ipsa assumenda laudantium voluptate fuga. Rerum laborum
-      dolorum est. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Consectetur, eligendi repellat sit fugit pariatur, minus magni dolore
-      officiis consequatur aliquid, tempora ipsa assumenda laudantium voluptate
-      fuga. Rerum laborum dolorum est. Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Consectetur, eligendi repellat sit fugit pariatur, minus
-      magni dolore officiis consequatur aliquid, tempora ipsa assumenda
-      laudantium voluptate fuga. Rerum laborum dolorum est. Lorem ipsum dolor
-      sit amet consectetur adipisicing elit. Consectetur, eligendi repellat sit
-      fugit pariatur, minus magni dolore officiis consequatur aliquid, tempora
-      ipsa assumenda laudantium voluptate fuga. Rerum laborum dolorum est. Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Consectetur, eligendi
-      repellat sit fugit pariatur, minus magni dolore officiis consequatur
-      aliquid, tempora ipsa assumenda laudantium voluptate fuga. Rerum laborum
-      dolorum est. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Consectetur, eligendi repellat sit fugit pariatur, minus magni dolore
-      officiis consequatur aliquid, tempora ipsa assumenda laudantium voluptate
-      fuga. Rerum laborum dolorum est. Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Consectetur, eligendi repellat sit fugit pariatur, minus
-      magni dolore officiis consequatur aliquid, tempora ipsa assumenda
-      laudantium voluptate fuga. Rerum laborum dolorum est. Lorem ipsum dolor
-      sit amet consectetur adipisicing elit. Consectetur, eligendi repellat sit
-      fugit pariatur, minus magni dolore officiis consequatur aliquid, tempora
-      ipsa assumenda laudantium voluptate fuga. Rerum laborum dolorum est. Lorem
-      ipsum dolor sit amet consectetur adipisicing elit. Consectetur, eligendi
-      repellat sit fugit pariatur, minus magni dolore officiis consequatur
-      aliquid, tempora ipsa assumenda laudantium voluptate fuga. Rerum laborum
-      dolorum est. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Consectetur, eligendi repellat sit fugit pariatur, minus magni dolore
-      officiis consequatur aliquid, tempora ipsa assumenda laudantium voluptate
-      fuga. Rerum laborum dolorum est. Lorem ipsum dolor sit amet consectetur
-      adipisicing elit. Consectetur, eligendi repellat sit fugit pariatur, minus
-      magni dolore officiis consequatur aliquid, tempora ipsa assumenda
-      laudantium voluptate fuga. Rerum laborum dolorum est FIN.
+      <div>
+        <p>{item.newSuggestions}</p>
+      </div>
     </div>
   );
 }

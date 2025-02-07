@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../../context/MenuContext";
 import { AlignJustify } from "lucide-react";
 
 export default function MenuApp() {
-  const { clicOnTheIconeMenuContext, setClicOnTheIconeMenuContext } =
-    useAppContext();
+  const { setClicOnTheIconeMenuContext } = useAppContext();
 
-  const [clickOnIcon, setClickOnIcon] = useState<boolean>(true);
+  const [clickOnIcon, setClickOnIcon] = useState<boolean>(false);
+
   const clicOnTheIconeFunction = () => {
     setClickOnIcon((prev) => !prev);
     console.log("clickOnIcon : ", clickOnIcon);
