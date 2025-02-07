@@ -2,23 +2,26 @@
 
 import { createContext, useState, useContext } from "react";
 
-// Définir le type du contexte, avec button et setButton
+//* Définir le type du contexte, avec clicOnTheIconeMenu et setClicOnTheIconeMenu.
 type ContextType = {
-  button: string;
-  setButton: (button: string) => void; // Ajout de la fonction setButton dans le type
+  clicOnTheIconeMenuContext: boolean;
+  setClicOnTheIconeMenuContext: (clicOnTheIconeMenuContext: boolean) => void;
 };
 
-// Créer le contexte avec une valeur par défaut pour éviter les erreurs
+//* Créer le contexte avec une valeur par défaut pour éviter les erreurs.
 const AppContext = createContext<ContextType>({
-  button: "converter",
-  setButton: () => {}, // Valeur par défaut pour setButton
+  clicOnTheIconeMenuContext: false,
+  setClicOnTheIconeMenuContext: () => {},
 });
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
-  const [button, setButton] = useState("converter");
+  const [clicOnTheIconeMenuContext, setClicOnTheIconeMenuContext] =
+    useState(false);
 
   return (
-    <AppContext.Provider value={{ button, setButton }}>
+    <AppContext.Provider
+      value={{ clicOnTheIconeMenuContext, setClicOnTheIconeMenuContext }}
+    >
       {children}
     </AppContext.Provider>
   );
