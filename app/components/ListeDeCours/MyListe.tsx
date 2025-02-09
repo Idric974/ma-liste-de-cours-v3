@@ -12,12 +12,14 @@ interface MyListeProps {
 }
 
 export default function MyListe({ item }: MyListeProps) {
-  console.log("item =======> ", item);
+  // console.log("item =======> ", item);
 
   return (
-    <div className="pt-[20%] h-full overflow-y-auto">
+    <div className="pt-[20%] h-full overflow-y-auto p-1">
       <div>
-        <p className="border shadow-lg">{item.newSuggestions}</p>
+        <p className="border shadow-lg max-w-full rounded-lg p-1">
+          {item.newSuggestions}
+        </p>
       </div>
     </div>
   );

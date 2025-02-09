@@ -25,6 +25,7 @@ export default function ThreadListe() {
         }
         const mySuggests: Suggest[] = await response.json();
         setItems(mySuggests);
+        console.log("mySuggests : ", mySuggests);
       } catch (err) {
         console.error("Erreur lors de la récupération des suggestions:", err);
         setError("Impossible de charger les suggestions.");
