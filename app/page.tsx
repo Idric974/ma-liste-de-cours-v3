@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useAppContext } from "./context/MenuContext";
 import MenuPopup from "./components/MenuDeApplication/MenuPopup";
 import MenuApp from "./components/MenuDeApplication/MenuApp";
-import MyListe from "./components/ListeDeCours/MyListe";
+import ThreadListe from "./components/ListeDeCours/ThreadListe";
 import MySuggestions from "./components/Suggestion/MySuggestions";
 import MyCarte from "./components/CarteDeFidelite/MyCarte";
 
@@ -23,7 +23,7 @@ export default function Home() {
   const renderComponent = () => {
     switch (clicOnPopupMenuContext) {
       case "MyListConponent":
-        return <MyListe />;
+        return <ThreadListe />;
       case "MySuggestionsConponent":
         return <MySuggestions />;
       case "MyCarteConponent":

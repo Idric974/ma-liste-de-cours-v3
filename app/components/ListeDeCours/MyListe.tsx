@@ -17,7 +17,7 @@ export default function MyListe({ item }: MyListeProps) {
   return (
     <div className="pt-[20%] h-full overflow-y-auto">
       <div>
-        <p>{item.newSuggestions}</p>
+        <p className="border shadow-lg">{item.newSuggestions}</p>
       </div>
     </div>
   );
