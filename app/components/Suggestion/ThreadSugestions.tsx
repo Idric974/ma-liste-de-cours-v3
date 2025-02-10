@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import MyListe from "./MyListe"; // Assurez-vous que ce composant est bien défini
+import MySuggestions from "./MySuggestions"; // Assurez-vous que ce composant est bien défini
 
 // Définition de l'interface en dehors du composant
 interface Suggest {
@@ -11,7 +11,7 @@ interface Suggest {
   updatedAt?: string;
 }
 
-export default function ThreadListe() {
+export default function ThreadSugestions() {
   // Utilisation de useState pour stocker les suggestions
   const [items, setItems] = useState<Suggest[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -32,23 +32,22 @@ export default function ThreadListe() {
       }
     };
 
-    //fetchData();
+    fetchData();
   }, []);
 
   return (
     <div className="pt-[14%] h-full overflow-y-auto">
-      {/* {error ? (
+      {error ? (
         <div className="text-red-500">{error}</div>
       ) : (
         <div>
           {items.length > 0 ? (
-            items.map((item) => <MyListe item={item} key={item.id} />)
+            items.map((item) => <MySuggestions item={item} key={item.id} />)
           ) : (
             <p>Chargement des suggestions...</p>
           )}
         </div>
-      )} */}
-      <p>ThreadListe</p>
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { useAppContext } from "./context/MenuContext";
 import MenuPopup from "./components/MenuDeApplication/MenuPopup";
 import MenuApp from "./components/MenuDeApplication/MenuApp";
 import ThreadListe from "./components/ListeDeCours/ThreadListe";
-import MySuggestions from "./components/Suggestion/MySuggestions";
+import ThreadSugestions from "./components/Suggestion/ThreadSugestions";
 import MyCarte from "./components/CarteDeFidelite/MyCarte";
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
       case "MyListConponent":
         return <ThreadListe />;
       case "MySuggestionsConponent":
-        return <MySuggestions />;
+        return <ThreadSugestions />;
       case "MyCarteConponent":
         return <MyCarte />;
       default:
