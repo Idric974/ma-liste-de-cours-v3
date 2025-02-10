@@ -15,9 +15,9 @@ export default function MyListe({ item }: MyListeProps) {
   // console.log("item =======> ", item);
 
   return (
-    <div className="pt-[20%] h-full overflow-y-auto p-1">
+    <div className="p-1 text-lg text-slate-950 text">
       <div>
-        <p className="border shadow-lg max-w-full rounded-lg p-1">
+        <p className="border shadow-lg max-w-full rounded-lg p-1 font-bold">
           {item.newSuggestions}
         </p>
       </div>
