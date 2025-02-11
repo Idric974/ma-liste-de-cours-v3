@@ -2,19 +2,21 @@
 
 import { createContext, useState, useContext } from "react";
 
-//* Définir le type du contexte, avec clicOnTheIconeMenu et setClicOnTheIconeMenu.
+//? Définir le type du contexte, avec clicOnTheIconeMenu et setClicOnTheIconeMenu.
 type ContextType = {
-  clicOnTheIconeMenuContext: boolean;
-  setClicOnTheIconeMenuContext: (clicOnTheIconeMenuContext: boolean) => void;
+  //* Fermer le menu popup.
+  closeMenuPopupContext: boolean;
+  setCloseMenuPopupContext: (closeMenuPopupContext: boolean) => void;
 
+  //* Transmettre le bouton cliqué.
   clicOnPopupMenuContext: string;
   setClicOnPopupMenuContext: (button: string) => void;
 };
 
-//* Créer le contexte avec une valeur par défaut pour éviter les erreurs.
+//? Créer le contexte avec une valeur par défaut pour éviter les erreurs.
 const AppContext = createContext<ContextType>({
-  clicOnTheIconeMenuContext: false,
-  setClicOnTheIconeMenuContext: () => {},
+  closeMenuPopupContext: false,
+  setCloseMenuPopupContext: () => {},
 
   clicOnPopupMenuContext: "",
   setClicOnPopupMenuContext: () => {},
@@ -23,8 +25,8 @@ const AppContext = createContext<ContextType>({
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   //* Clic sur l'icone du menu sandwitch du menu.
 
-  const [clicOnTheIconeMenuContext, setClicOnTheIconeMenuContext] =
-    useState(false);
+  const [closeMenuPopupContext, setCloseMenuPopupContext] = useState(false);
+  console.log("CONTEXT | closeMenuPopupContext : ", closeMenuPopupContext);
 
   //* Clic sur un des boutons du menu popup.
   const [clicOnPopupMenuContext, setClicOnPopupMenuContext] =
@@ -33,8 +35,8 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
   return (
     <AppContext.Provider
       value={{
-        clicOnTheIconeMenuContext,
-        setClicOnTheIconeMenuContext,
+        closeMenuPopupContext,
+        setCloseMenuPopupContext,
         clicOnPopupMenuContext,
         setClicOnPopupMenuContext,
       }}

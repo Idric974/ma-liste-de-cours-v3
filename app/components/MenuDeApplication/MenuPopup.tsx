@@ -2,36 +2,22 @@ import { Button } from "@/components/ui/button";
 import { useAppContext } from "../../context/MenuContext";
 
 export default function MenuPopup() {
-  const { clicOnTheIconeMenuContext, setClicOnTheIconeMenuContext } =
-    useAppContext();
-
+  const { setCloseMenuPopupContext } = useAppContext();
   const { setClicOnPopupMenuContext } = useAppContext();
 
   const cilckOnListButton = () => {
     setClicOnPopupMenuContext("MyListConponent");
-    setClicOnTheIconeMenuContext(false);
-    // console.log(
-    //   "MenuPopup | clic sur MyListConponent: ",
-    //   clicOnTheIconeMenuContext
-    // );
+    setCloseMenuPopupContext(false);
   };
 
   const cilckOnSuggestionsButton = () => {
     setClicOnPopupMenuContext("MySuggestionsConponent");
-    setClicOnTheIconeMenuContext(false);
-    // console.log(
-    //   "MenuPopup | clic sur MySuggestionsConponent: ",
-    //   clicOnTheIconeMenuContext
-    // );
+    setCloseMenuPopupContext(false);
   };
 
   const cilckOnMesCartesButton = () => {
     setClicOnPopupMenuContext("MyCarteConponent");
-    setClicOnTheIconeMenuContext(false);
-    // console.log(
-    //   "MenuPopup | clic sur MyCarteConponent: ",
-    //   clicOnTheIconeMenuContext
-    // );
+    setCloseMenuPopupContext(false);
   };
 
   return (

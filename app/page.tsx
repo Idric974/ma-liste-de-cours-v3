@@ -9,16 +9,13 @@ import ThreadSugestions from "./components/Suggestion/ThreadSugestions";
 import MyCarte from "./components/CarteDeFidelite/MyCarte";
 
 export default function Home() {
-  const { clicOnTheIconeMenuContext } = useAppContext();
-  const myToggle = clicOnTheIconeMenuContext;
-
   const { clicOnPopupMenuContext, setClicOnPopupMenuContext } = useAppContext();
 
   useEffect(() => {
     setClicOnPopupMenuContext(clicOnPopupMenuContext);
   }, [clicOnPopupMenuContext, setClicOnPopupMenuContext]);
 
-  console.log("🟢 clicOnPopupMenuContext : ", clicOnPopupMenuContext);
+  // console.log("🟢 clicOnPopupMenuContext : ", clicOnPopupMenuContext);
 
   const renderComponent = () => {
     switch (clicOnPopupMenuContext) {
@@ -35,21 +32,6 @@ export default function Home() {
 
   return (
     <div className="relative border p-0">
-      {/* La popup */}
-      <div
-        className={`
-          absolute top-16 right-0 z-50 p-1
-          transform transition-transform duration-300 ease-in-out
-          ${
-            myToggle
-              ? "scale-100 opacity-100"
-              : "scale-75 opacity-0 pointer-events-none"
-          }
-        `}
-      >
-        <MenuPopup />
-      </div>
-
       {/* Le menu */}
       <div className="fixed top-0 left-0 w-full">
         <MenuApp />
