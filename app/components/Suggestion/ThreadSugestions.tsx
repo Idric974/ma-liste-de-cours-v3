@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MySuggestions from "./MySuggestions";
+import { SquarePlus } from "lucide-react";
 
 //* Définition de l'interface en dehors du composant
 interface Suggest {
@@ -35,6 +36,10 @@ export default function ThreadSugestions() {
     fetchData();
   }, []);
 
+  const addOneSuggest = () => {
+    console.log("clickOnIcon");
+  };
+
   return (
     <div className="pt-[14%] h-full overflow-y-auto">
       {error ? (
@@ -48,6 +53,13 @@ export default function ThreadSugestions() {
           )}
         </div>
       )}
+
+      <div
+        className="z-50 p-1 bg-orange-500 rounded-lg fixed bottom-1 right-1"
+        onClick={addOneSuggest}
+      >
+        <SquarePlus className="w-12 h-12" />
+      </div>
     </div>
   );
 }
