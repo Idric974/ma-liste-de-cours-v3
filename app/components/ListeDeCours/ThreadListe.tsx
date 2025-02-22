@@ -1,54 +1,52 @@
+import MyListe from "./MyListe";
 import React, { useEffect, useState } from "react";
-// import MyListe from "./MyListe"; // Assurez-vous que ce composant est bien défini
 
-// Définition de l'interface en dehors du composant
-interface Suggest {
+//* Définition de l'interface en dehors du composant
+interface Liste {
   id: number;
   title: string;
   content: string;
-  newSuggestions: any; // Remplace `any` par le bon type si connu
-  createdAt?: string;
-  updatedAt?: string;
+  articles: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function ThreadListe() {
-  // Utilisation de useState pour stocker les suggestions
-  const [items, setItems] = useState<Suggest[]>([]);
+  const [items, setItems] = useState<Liste[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/suggestes");
+        const response = await fetch("/api/listes");
         if (!response.ok) {
           throw new Error(`Erreur API: ${response.statusText}`);
         }
-        const mySuggests: Suggest[] = await response.json();
-        setItems(mySuggests);
-        console.log("mySuggests : ", mySuggests);
+        const myListes: Liste[] = await response.json();
+        setItems(myListes);
+        console.log("myListes : ", myListes);
       } catch (err) {
         console.error("Erreur lors de la récupération des suggestions:", err);
         setError("Impossible de charger les suggestions.");
       }
     };
 
-    //fetchData();
+    fetchData();
   }, []);
 
   return (
     <div className="pt-[14%] h-full overflow-y-auto">
-      {/* {error ? (
+      {error ? (
         <div className="text-red-500">{error}</div>
       ) : (
         <div>
           {items.length > 0 ? (
             items.map((item) => <MyListe item={item} key={item.id} />)
           ) : (
-            <p>Chargement des suggestions...</p>
+            <p>Chargement de la liste de courses...</p>
           )}
         </div>
-      )} */}
-      <p>ThreadListe</p>
+      )}
     </div>
   );
 }

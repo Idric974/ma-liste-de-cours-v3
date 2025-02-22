@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import MySuggestions from "./MySuggestions"; // Assurez-vous que ce composant est bien défini
+import MySuggestions from "./MySuggestions";
 
-// Définition de l'interface en dehors du composant
+//* Définition de l'interface en dehors du composant
 interface Suggest {
   id: number;
   title: string;
   content: string;
-  newSuggestions: any; // Remplace `any` par le bon type si connu
-  createdAt?: string;
-  updatedAt?: string;
+  newSuggestions: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function ThreadSugestions() {

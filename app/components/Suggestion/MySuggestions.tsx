@@ -1,5 +1,5 @@
 import React from "react";
-import { ShoppingBasket, Trash2, Pen } from "lucide-react";
+import { Trash2, Pen } from "lucide-react";
 
 type ItemType = {
   id: number;

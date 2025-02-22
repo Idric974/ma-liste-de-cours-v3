@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useAppContext } from "./context/MenuContext";
-import MenuPopup from "./components/MenuDeApplication/MenuPopup";
+// import MenuPopup from "./components/MenuDeApplication/MenuPopup";
 import MenuApp from "./components/MenuDeApplication/MenuApp";
 import ThreadListe from "./components/ListeDeCours/ThreadListe";
 import ThreadSugestions from "./components/Suggestion/ThreadSugestions";
@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   return (
-    <div className="relative border p-0">
+    <div className="relative p-1">
       {/* Le menu */}
       <div className="fixed top-0 left-0 w-full">
         <MenuApp />
