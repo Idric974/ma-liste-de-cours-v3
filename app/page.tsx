@@ -7,7 +7,7 @@ import ThreadSugestions from "./components/Suggestion/ThreadSugestions";
 import MyCarte from "./components/CarteDeFidelite/MyCarte";
 
 export default function Home() {
-  const { clicOnPopupMenuContext, setClicOnPopupMenuContext } = useAppContext();
+  const { clicOnPopupMenuContext } = useAppContext();
 
 
   const renderComponent = () => {

@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Une erreur est survenue
             </h1>
             <p className="text-gray-700 mb-4">
-              Désolé, quelque chose s'est mal passé. Veuillez rafraîchir la page
+              Désolé, quelque chose s&apos;est mal passé. Veuillez rafraîchir la page
               ou réessayer plus tard.
             </p>
             {this.state.error && (
