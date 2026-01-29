@@ -16,24 +16,42 @@ export default function ThreadSugestions() {
   // Utilisation de useState pour stocker les suggestions
   const [items, setItems] = useState<Suggest[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [existingArticles, setExistingArticles] = useState<Set<string>>(
+    new Set()
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/suggestes");
-        if (!response.ok) {
-          throw new Error(`Erreur API: ${response.statusText}`);
+        // Récupérer les suggestions
+        const suggestResponse = await fetch("/api/suggestes");
+        if (!suggestResponse.ok) {
+          throw new Error(`Erreur API: ${suggestResponse.statusText}`);
         }
-        const mySuggests: Suggest[] = await response.json();
+        const mySuggests: Suggest[] = await suggestResponse.json();
         setItems(mySuggests);
+
+        // Récupérer la liste des courses existantes
+        const listesResponse = await fetch("/api/listes");
+        if (listesResponse.ok) {
+          const listes = await listesResponse.json();
+          const articlesSet = new Set<string>(
+            listes.map((item: { articles: string }) => item.articles)
+          );
+          setExistingArticles(articlesSet);
+        }
       } catch (err) {
-        console.error("Erreur lors de la récupération des suggestions:", err);
+        console.error("Erreur lors de la récupération des données:", err);
         setError("Impossible de charger les suggestions.");
       }
     };
 
     fetchData();
   }, []);
+
+  const handleItemAdded = (articleName: string) => {
+    setExistingArticles((prev) => new Set(prev).add(articleName));
+  };
 
   const addOneSuggest = async () => {
     const suggestionName = prompt("Entrez le nom de la suggestion:");
@@ -57,12 +75,20 @@ export default function ThreadSugestions() {
 
   return (
     <div className="pt-[14%] h-full overflow-y-auto">
+      <p>Mes suggestions </p>
       {error ? (
         <div className="text-red-500">{error}</div>
       ) : (
         <div>
           {items.length > 0 ? (
-            items.map((item) => <MySuggestions item={item} key={item.id} />)
+            items.map((item) => (
+              <MySuggestions
+                item={item}
+                key={item.id}
+                isInList={existingArticles.has(item.newSuggestions)}
+                onItemAdded={handleItemAdded}
+              />
+            ))
           ) : (
             <p>Chargement des suggestions...</p>
           )}

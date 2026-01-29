@@ -7,15 +7,18 @@ import { useAppContext } from "../../context/MenuContext";
 
 export default function MenuApp() {
   const [clickOnIcon, setClickOnIcon] = useState<boolean>(false);
-  const { closeMenuPopupContext } = useAppContext();
+  const { closeMenuPopupContext, setCloseMenuPopupContext } = useAppContext();
 
   const clicOnTheSandwich = () => {
     setClickOnIcon((prev) => !prev);
   };
 
   useEffect(() => {
-    setClickOnIcon(closeMenuPopupContext);
-  }, [closeMenuPopupContext]);
+    if (closeMenuPopupContext) {
+      setClickOnIcon(false);
+      setCloseMenuPopupContext(false);
+    }
+  }, [closeMenuPopupContext, setCloseMenuPopupContext]);
 
   return (
     <div className=" bg-blue-700 flex flex-row justify-between items-center">
