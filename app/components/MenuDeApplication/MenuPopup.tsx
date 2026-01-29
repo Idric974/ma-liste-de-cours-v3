@@ -2,22 +2,21 @@ import { Button } from "@/components/ui/button";
 import { useAppContext } from "../../context/MenuContext";
 
 export default function MenuPopup() {
-  const { setCloseMenuPopupContext } = useAppContext();
-  const { setClicOnPopupMenuContext } = useAppContext();
+  const { setCloseMenuPopupContext, setClicOnPopupMenuContext } = useAppContext();
 
-  const cilckOnListButton = () => {
-    setClicOnPopupMenuContext("MyListConponent");
-    setCloseMenuPopupContext(false);
+  const clickOnListButton = () => {
+    setClicOnPopupMenuContext("MyListComponent");
+    setCloseMenuPopupContext(true);
   };
 
-  const cilckOnSuggestionsButton = () => {
-    setClicOnPopupMenuContext("MySuggestionsConponent");
-    setCloseMenuPopupContext(false);
+  const clickOnSuggestionsButton = () => {
+    setClicOnPopupMenuContext("MySuggestionsComponent");
+    setCloseMenuPopupContext(true);
   };
 
-  const cilckOnMesCartesButton = () => {
-    setClicOnPopupMenuContext("MyCarteConponent");
-    setCloseMenuPopupContext(false);
+  const clickOnMesCartesButton = () => {
+    setClicOnPopupMenuContext("MyCarteComponent");
+    setCloseMenuPopupContext(true);
   };
 
   return (
@@ -25,7 +24,8 @@ export default function MenuPopup() {
       <Button
         variant="outline"
         className="w-36 m-1 shadow-l"
-        onClick={() => cilckOnListButton()}
+        onClick={clickOnListButton}
+        aria-label="Aller à ma liste de cours"
       >
         Ma liste de cours
       </Button>
@@ -33,14 +33,16 @@ export default function MenuPopup() {
       <Button
         variant="outline"
         className="w-36 m-1 shadow-l"
-        onClick={() => cilckOnSuggestionsButton()}
+        onClick={clickOnSuggestionsButton}
+        aria-label="Aller à mes suggestions"
       >
         Mes suggestions
       </Button>
       <Button
         variant="outline"
         className="w-36 m-1 shadow-l"
-        onClick={() => cilckOnMesCartesButton()}
+        onClick={clickOnMesCartesButton}
+        aria-label="Aller à mes cartes"
       >
         Mes cartes
       </Button>

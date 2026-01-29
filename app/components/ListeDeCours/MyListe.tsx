@@ -12,8 +12,6 @@ interface MyListeProps {
 }
 
 export default function MyListe({ item }: MyListeProps) {
-  console.log("Liste de courses =======> ", item);
-
   return (
     <div className="p-1 text-lg text-slate-950 text">
       <div>

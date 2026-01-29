@@ -11,12 +11,10 @@ export default function MenuApp() {
 
   const clicOnTheSandwich = () => {
     setClickOnIcon((prev) => !prev);
-    console.log("clickOnIcon : ", clickOnIcon);
   };
 
   useEffect(() => {
     setClickOnIcon(closeMenuPopupContext);
-    console.log("🟢 closeMenuPopupContext ==>", closeMenuPopupContext);
   }, [closeMenuPopupContext]);
 
   return (
@@ -40,16 +38,18 @@ export default function MenuApp() {
         <MenuPopup />
       </div>
 
-      <div className="p-1 cursor-pointer text-lg">
+      <button
+        className="p-1 cursor-pointer text-lg"
+        onClick={clicOnTheSandwich}
+        aria-label={clickOnIcon ? "Fermer le menu" : "Ouvrir le menu"}
+        aria-expanded={clickOnIcon}
+      >
         {clickOnIcon ? (
-          <X className="w-10 h-10 cursor-pointer" onClick={clicOnTheSandwich} />
+          <X className="w-10 h-10" aria-hidden="true" />
         ) : (
-          <AlignJustify
-            className="w-10 h-10 cursor-pointer"
-            onClick={clicOnTheSandwich}
-          />
+          <AlignJustify className="w-10 h-10" aria-hidden="true" />
         )}
-      </div>
+      </button>
     </div>
   );
 }

@@ -26,11 +26,10 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
   //* Clic sur l'icone du menu sandwitch du menu.
 
   const [closeMenuPopupContext, setCloseMenuPopupContext] = useState(false);
-  console.log("CONTEXT | closeMenuPopupContext : ", closeMenuPopupContext);
 
   //* Clic sur un des boutons du menu popup.
   const [clicOnPopupMenuContext, setClicOnPopupMenuContext] =
-    useState("MyListConponent");
+    useState("MyListComponent");
 
   return (
     <AppContext.Provider

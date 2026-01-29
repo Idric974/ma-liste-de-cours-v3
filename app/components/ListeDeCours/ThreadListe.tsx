@@ -24,10 +24,9 @@ export default function ThreadListe() {
         }
         const myListes: Liste[] = await response.json();
         setItems(myListes);
-        console.log("myListes : ", myListes);
       } catch (err) {
-        console.error("Erreur lors de la récupération des suggestions:", err);
-        setError("Impossible de charger les suggestions.");
+        console.error("Erreur lors de la récupération des listes:", err);
+        setError("Impossible de charger les listes.");
       }
     };
 

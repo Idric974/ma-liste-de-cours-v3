@@ -1,20 +1,55 @@
-import mysql from "mysql2/promise";
+import { initializeApp, getApps, FirebaseApp } from "firebase/app";
+import { getFirestore, Firestore } from "firebase/firestore";
 
-let connection: mysql.Connection | null = null;
+// Validation des variables d'environnement Firebase
+function validateFirebaseEnvVars() {
+  const required = [
+    'NEXT_PUBLIC_FIREBASE_API_KEY',
+    'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
+    'NEXT_PUBLIC_FIREBASE_PROJECT_ID',
+    'NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET',
+    'NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID',
+    'NEXT_PUBLIC_FIREBASE_APP_ID'
+  ];
 
-export async function createConnection(): Promise<mysql.Connection> {
-  if (!connection) {
-    const port = process.env.BDD_PORT
-      ? parseInt(process.env.BDD_PORT, 10)
-      : 3306;
+  const missing = required.filter(key => !process.env[key]);
 
-    connection = await mysql.createConnection({
-      database: process.env.DATABASE,
-      user: process.env.USERNAME_DATABASE,
-      password: process.env.PASSWORD,
-      host: process.env.HOST,
-      port,
-    });
+  if (missing.length > 0) {
+    throw new Error(`Missing required Firebase environment variables: ${missing.join(', ')}`);
   }
-  return connection;
+}
+
+// Configuration Firebase
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+};
+
+let app: FirebaseApp;
+let db: Firestore;
+
+// Initialiser Firebase (une seule fois)
+export function initializeFirebase() {
+  if (!getApps().length) {
+    validateFirebaseEnvVars();
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+  } else {
+    app = getApps()[0];
+    db = getFirestore(app);
+  }
+  return { app, db };
+}
+
+// Exporter l'instance Firestore
+export function getDb(): Firestore {
+  if (!db) {
+    const { db: database } = initializeFirebase();
+    return database;
+  }
+  return db;
 }

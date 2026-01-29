@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
 import { useAppContext } from "./context/MenuContext";
-// import MenuPopup from "./components/MenuDeApplication/MenuPopup";
 import MenuApp from "./components/MenuDeApplication/MenuApp";
 import ThreadListe from "./components/ListeDeCours/ThreadListe";
 import ThreadSugestions from "./components/Suggestion/ThreadSugestions";
@@ -11,19 +9,14 @@ import MyCarte from "./components/CarteDeFidelite/MyCarte";
 export default function Home() {
   const { clicOnPopupMenuContext, setClicOnPopupMenuContext } = useAppContext();
 
-  useEffect(() => {
-    setClicOnPopupMenuContext(clicOnPopupMenuContext);
-  }, [clicOnPopupMenuContext, setClicOnPopupMenuContext]);
-
-  // console.log("🟢 clicOnPopupMenuContext : ", clicOnPopupMenuContext);
 
   const renderComponent = () => {
     switch (clicOnPopupMenuContext) {
-      case "MyListConponent":
+      case "MyListComponent":
         return <ThreadListe />;
-      case "MySuggestionsConponent":
+      case "MySuggestionsComponent":
         return <ThreadSugestions />;
-      case "MyCarteConponent":
+      case "MyCarteComponent":
         return <MyCarte />;
       default:
         return null;
@@ -38,7 +31,7 @@ export default function Home() {
       </div>
 
       {/* Le body */}
-      <div className=" w-full">{renderComponent()}</div>
+      <div className="w-full">{renderComponent()}</div>
     </div>
   );
 }

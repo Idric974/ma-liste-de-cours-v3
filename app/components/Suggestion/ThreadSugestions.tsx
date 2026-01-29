@@ -26,7 +26,6 @@ export default function ThreadSugestions() {
         }
         const mySuggests: Suggest[] = await response.json();
         setItems(mySuggests);
-        console.log("mySuggests : ", mySuggests);
       } catch (err) {
         console.error("Erreur lors de la récupération des suggestions:", err);
         setError("Impossible de charger les suggestions.");
@@ -36,8 +35,24 @@ export default function ThreadSugestions() {
     fetchData();
   }, []);
 
-  const addOneSuggest = () => {
-    console.log("clickOnIcon");
+  const addOneSuggest = async () => {
+    const suggestionName = prompt("Entrez le nom de la suggestion:");
+    if (!suggestionName) return;
+
+    try {
+      const response = await fetch("/api/suggestes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: suggestionName }),
+      });
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'ajout de la suggestion");
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Erreur:", error);
+      alert("Impossible d'ajouter la suggestion.");
+    }
   };
 
   return (
@@ -54,12 +69,13 @@ export default function ThreadSugestions() {
         </div>
       )}
 
-      <div
-        className="z-50 p-1 bg-orange-500 rounded-lg fixed bottom-1 right-1"
+      <button
+        className="z-50 p-1 bg-orange-500 rounded-lg fixed bottom-1 right-1 hover:bg-orange-600 transition-colors"
         onClick={addOneSuggest}
+        aria-label="Ajouter une nouvelle suggestion"
       >
-        <SquarePlus className="w-12 h-12" />
-      </div>
+        <SquarePlus className="w-12 h-12" aria-hidden="true" />
+      </button>
     </div>
   );
 }
