@@ -7,6 +7,8 @@ import {
   deleteDoc,
   doc,
   Timestamp,
+  query,
+  where,
 } from "firebase/firestore";
 
 export async function GET(): Promise<NextResponse> {
@@ -44,11 +46,25 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
 
+    // Capitaliser la première lettre
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
     const db = getDb();
     const listesCollection = collection(db, "listes");
 
+    // Vérifier si l'article existe déjà dans la liste (insensible à la casse)
+    const q = query(listesCollection, where("articles", "==", capitalizedName));
+    const existingDocs = await getDocs(q);
+
+    if (!existingDocs.empty) {
+      return NextResponse.json(
+        { error: "Cet article existe déjà dans la liste" },
+        { status: 409 }
+      );
+    }
+
     const docRef = await addDoc(listesCollection, {
-      articles: name,
+      articles: capitalizedName,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     });
@@ -56,7 +72,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         id: docRef.id,
-        articles: name,
+        articles: capitalizedName,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },

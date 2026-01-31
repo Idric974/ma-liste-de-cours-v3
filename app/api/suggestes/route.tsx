@@ -8,6 +8,8 @@ import {
   deleteDoc,
   doc,
   Timestamp,
+  query,
+  where,
 } from "firebase/firestore";
 
 export async function GET(): Promise<NextResponse> {
@@ -20,6 +22,13 @@ export async function GET(): Promise<NextResponse> {
       id: doc.id,
       ...doc.data(),
     }));
+
+    // Trier par ordre alphabétique sur le champ newSuggestions
+    suggests.sort((a, b) => {
+      const nameA = (a.newSuggestions || "").toLowerCase();
+      const nameB = (b.newSuggestions || "").toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
 
     return NextResponse.json(suggests);
   } catch (error) {
@@ -46,11 +55,28 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
 
+    // Capitaliser la première lettre
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
     const db = getDb();
     const suggestsCollection = collection(db, "suggests");
 
+    // Vérifier si la suggestion existe déjà (insensible à la casse)
+    const q = query(
+      suggestsCollection,
+      where("newSuggestions", "==", capitalizedName)
+    );
+    const existingDocs = await getDocs(q);
+
+    if (!existingDocs.empty) {
+      return NextResponse.json(
+        { error: "Cette suggestion existe déjà dans la base de données" },
+        { status: 409 }
+      );
+    }
+
     const docRef = await addDoc(suggestsCollection, {
-      newSuggestions: name,
+      newSuggestions: capitalizedName,
       quantity: quantity || 1,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
@@ -59,7 +85,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         id: docRef.id,
-        newSuggestions: name,
+        newSuggestions: capitalizedName,
         quantity: quantity || 1,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -97,11 +123,32 @@ export async function PUT(request: Request): Promise<NextResponse> {
       );
     }
 
+    // Capitaliser la première lettre
+    const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
+
     const db = getDb();
+
+    // Vérifier si une autre suggestion avec le même nom existe déjà
+    const suggestsCollection = collection(db, "suggests");
+    const q = query(
+      suggestsCollection,
+      where("newSuggestions", "==", capitalizedName)
+    );
+    const existingDocs = await getDocs(q);
+
+    // Si un document existe avec le même nom mais un ID différent, c'est un doublon
+    const duplicate = existingDocs.docs.find((doc) => doc.id !== id);
+    if (duplicate) {
+      return NextResponse.json(
+        { error: "Cette suggestion existe déjà dans la base de données" },
+        { status: 409 }
+      );
+    }
+
     const docRef = doc(db, "suggests", id);
 
     await updateDoc(docRef, {
-      newSuggestions: name,
+      newSuggestions: capitalizedName,
       quantity: quantity || 1,
       updatedAt: Timestamp.now(),
     });
@@ -109,7 +156,7 @@ export async function PUT(request: Request): Promise<NextResponse> {
     return NextResponse.json({
       success: true,
       id,
-      newSuggestions: name,
+      newSuggestions: capitalizedName,
       quantity: quantity || 1,
     });
   } catch (error) {
