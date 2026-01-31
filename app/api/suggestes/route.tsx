@@ -12,15 +12,23 @@ import {
   where,
 } from "firebase/firestore";
 
+interface Suggest {
+  id: string;
+  newSuggestions: string;
+  quantity: number;
+  createdAt: unknown;
+  updatedAt: unknown;
+}
+
 export async function GET(): Promise<NextResponse> {
   try {
     const db = getDb();
     const suggestsCollection = collection(db, "suggests");
     const snapshot = await getDocs(suggestsCollection);
 
-    const suggests = snapshot.docs.map((doc) => ({
+    const suggests: Suggest[] = snapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data(),
+      ...(doc.data() as Omit<Suggest, "id">),
     }));
 
     // Trier par ordre alphabétique sur le champ newSuggestions

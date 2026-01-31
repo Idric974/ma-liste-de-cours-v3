@@ -11,15 +11,22 @@ import {
   where,
 } from "firebase/firestore";
 
+interface Liste {
+  id: string;
+  articles: string;
+  createdAt: unknown;
+  updatedAt: unknown;
+}
+
 export async function GET(): Promise<NextResponse> {
   try {
     const db = getDb();
     const listesCollection = collection(db, "listes");
     const snapshot = await getDocs(listesCollection);
 
-    const listes = snapshot.docs.map((doc) => ({
+    const listes: Liste[] = snapshot.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data(),
+      ...(doc.data() as Omit<Liste, "id">),
     }));
 
     return NextResponse.json(listes);
